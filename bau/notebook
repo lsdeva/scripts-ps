@@ -1,21 +1,29 @@
 transitionMatrix = numpy.array([[0.917,0.0747,0.0083],[0.5,0.45,0.05],[0.5,0.45,0.05]])
 tt=transitionMatrix
 G = numpy.array ([[1.03],[0.99],[0.9]])
+G1= []
+G2= []
+G3= []
 Y0 = 5
 for x in range(0, 10):
     c = G.dot(Y0)
-    print(tt.dot(c))
+    full=tt.dot(c)
+    G1.append(full[0])
+    G2.append(full[1])
+    G3.append(full[2])
     tt = multiDot(transitionMatrix,tt)
 
+
+states=[0,1,2,3,4,5,6,7,8,9]
 fig, ax = plt.subplots(figsize=(12, 8))
 
-for g in G:
-    
-    v = tree_price(ap)
-    ax.plot(states, v, lw=2, alpha=0.6, label=rf"$\gamma = {γ}$")
 
-ax.set_title('Price-divdend ratio as a function of the state')
-ax.set_ylabel("price-dividend ratio")
-ax.set_xlabel("state")
+ax.plot(states, G1, lw=2, alpha=0.6, label=rf"g = {G[0]}")
+ax.plot(states, G2, lw=2, alpha=0.6, label=rf"g = {G[1]}")
+ax.plot(states, G3, lw=2, alpha=0.6, label=rf"g = {G[2]}")
+
+ax.set_title('Price-divdend ratio vs time')
+ax.set_ylabel("endowment")
+ax.set_xlabel("time")
 ax.legend(loc='upper right')
 plt.show()
